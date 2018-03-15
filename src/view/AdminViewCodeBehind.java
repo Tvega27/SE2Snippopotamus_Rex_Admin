@@ -7,6 +7,12 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 
+/**
+ * Code behind for the AdminView
+ * 
+ * @author Tyler Vega
+ *
+ */
 public class AdminViewCodeBehind {
 
     @FXML
