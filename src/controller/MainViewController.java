@@ -7,10 +7,10 @@ import java.util.Objects;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import model.AdminTextFileDataStoreImplementation;
 import model.CodeSnippet;
 import model.CodeSnippetDataStore;
 import model.TagIndex;
-import model.TextFileDataStoreImplementation;
 
 /**
  * Controller for the main view.
@@ -23,6 +23,7 @@ public class MainViewController {
 	private ObservableList<CodeSnippet> observableData;
 	private ObservableList<CodeSnippet> unfilteredData;
 	private ObservableList<CodeSnippet> filteredData;
+	private ObservableList<CodeSnippet> flaggedData;
 	private TagIndex tagIndex;
 	/**
 	 * Initializes the controller by loading the code snippet data from the data-store.
@@ -31,7 +32,7 @@ public class MainViewController {
 	 * @param filename 	The name of the code snippet data file.
 	 */
 	public MainViewController(String filename) {
-		this.dataStore = new TextFileDataStoreImplementation(Objects.requireNonNull(filename, "Filename was null."));
+		this.dataStore = new AdminTextFileDataStoreImplementation(Objects.requireNonNull(filename, "Filename was null."));
 		this.tagIndex = new TagIndex();
 		this.tagIndex.populateIndex(this.dataStore);
 		this.unfilteredData = FXCollections.observableArrayList(CodeSnippet.extractor());
@@ -44,7 +45,16 @@ public class MainViewController {
 		}
 		this.observableData = this.unfilteredData;
 	}
-
+	private void loadFlaggedData() {
+		for (CodeSnippet current : this.dataStore.getCodeSnippetList()) {
+			if(current.isFlagged()) {
+				
+			this.flaggedData.add(current);
+		}
+		
+		
+	}
+	}
 	/**
 	 * Returns the observable CodeSnippet list.
 	 * @preconditions: 	None
@@ -209,4 +219,7 @@ public class MainViewController {
 			this.tagIndex.getAllTags().remove(tagToRemove);
 		}
 	}
+	
+	
+	
 }

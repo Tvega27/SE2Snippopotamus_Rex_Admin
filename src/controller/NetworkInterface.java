@@ -18,6 +18,7 @@ public class NetworkInterface {
 	private Socket comSocket;
 	private DataInputStream in;
 	private PrintStream out;
+	private String serverPubKey;
 
 	public NetworkInterface(InetAddress address, int port) {
 		Objects.requireNonNull(address);
@@ -36,7 +37,7 @@ public class NetworkInterface {
 			return false;
 	}
 
-	public String requestServerDump() {
+	public String requestServerDumpToJSONString() {
 		try {
 			comSocket = new Socket("localhost", portNumber);
 			out = new PrintStream(comSocket.getOutputStream());
@@ -81,7 +82,7 @@ public class NetworkInterface {
 		}
 
 	}
-	
+
 	public boolean requestServerRemove(CodeSnippet toRemove) {
 		try {
 			comSocket = new Socket("localhost", portNumber);
@@ -106,9 +107,9 @@ public class NetworkInterface {
 		}
 
 	}
+
 	public boolean requestServerModify(CodeSnippet origonal, CodeSnippet changed) {
-		
-		
+
 		try {
 			comSocket = new Socket("localhost", portNumber);
 			out = new PrintStream(comSocket.getOutputStream());
@@ -119,7 +120,8 @@ public class NetworkInterface {
 			System.err.println("Couldn't get I/O for the connection to: hostname");
 		}
 		String verification = null;
-		out.print("MODIFY" + " " + JSONHandler.jsonStringFromSnippet(origonal)+JSONHandler.jsonStringFromSnippet(changed) );
+		out.print("MODIFY" + " " + JSONHandler.jsonStringFromSnippet(origonal)
+				+ JSONHandler.jsonStringFromSnippet(changed));
 		try {
 			verification = in.readUTF();
 			comSocket.close();
@@ -132,29 +134,31 @@ public class NetworkInterface {
 		}
 
 	}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
+	public boolean requestPKey() {
+
+		try {
+			comSocket = new Socket("localhost", portNumber);
+			out = new PrintStream(comSocket.getOutputStream());
+			in = new DataInputStream(new BufferedInputStream(comSocket.getInputStream()));
+		} catch (UnknownHostException e) {
+			System.err.println("Don't know about host: hostname");
+		} catch (IOException e) {
+			System.err.println("Couldn't get I/O for the connection to: hostname");
+		}
+		String verification = null;
+		out.print("REQUEST_PKEY");
+		try {
+			this.serverPubKey = in.readUTF();
+			comSocket.close();
+		} catch (IOException e) {
+		}
+		if (this.serverPubKey != null) {
+			return true;
+		} else {
+			return false;
+		}
+
+	}
+
+}

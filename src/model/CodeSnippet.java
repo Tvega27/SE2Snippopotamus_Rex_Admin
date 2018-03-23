@@ -63,7 +63,7 @@ public class CodeSnippet {
 		Code theCode = new Code(Objects.requireNonNull(codeText, "Code text was null."));
 		this.code = new SimpleObjectProperty<>(theCode);
 		this.tags = tags;
-		this.flagged = Objects.requireNonNull(flagged);
+		this.setFlagged(Objects.requireNonNull(flagged));
 	}
 
 	
@@ -240,5 +240,13 @@ public class CodeSnippet {
 	 */
 	public List<StringProperty> getTags() {
 		return this.tags;
+	}
+
+	public boolean isFlagged() {
+		return flagged;
+	}
+
+	public void setFlagged(boolean flagged) {
+		this.flagged = flagged;
 	}
 }

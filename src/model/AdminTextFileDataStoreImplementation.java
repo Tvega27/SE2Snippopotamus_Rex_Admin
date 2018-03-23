@@ -18,7 +18,7 @@ import javafx.beans.property.StringProperty;
  * @author David Jarrett
  * @version 02/13/2018
  */
-public class TextFileDataStoreImplementation implements CodeSnippetDataStore {
+public class AdminTextFileDataStoreImplementation implements CodeSnippetDataStore {
 
 	private static final String NEWLINE = "\n";
 	private static final String NEWLINE_REPLACEMENT = "000000zxczxczxc1111111111111122222222222000lskdjfPOPOPOP";
@@ -38,14 +38,14 @@ public class TextFileDataStoreImplementation implements CodeSnippetDataStore {
 	 * @param filename
 	 *            The name of the snippet data file.
 	 */
-	public TextFileDataStoreImplementation(String filename) {
+	public AdminTextFileDataStoreImplementation(String filename) {
 		String currentDirectory = System.getProperty("user.dir");
 		this.storageFile = new File(currentDirectory, Objects.requireNonNull(filename, "Filename was null."));
 		this.loadCodeSnippets();
 	}
 	
 
-	public TextFileDataStoreImplementation(String filename, List<CodeSnippet> snippets, boolean overwrite) {
+	public AdminTextFileDataStoreImplementation(String filename, List<CodeSnippet> snippets, boolean overwrite) {
 		this(filename);
 		if(overwrite =true) {
 		this.snippets = snippets;
@@ -69,13 +69,18 @@ public class TextFileDataStoreImplementation implements CodeSnippetDataStore {
 			while (in.hasNextLine()) {
 				String name = in.nextLine();
 				String description = in.nextLine();
+				String flagged = in.nextLine();
+				boolean flag = false;
+				if(flagged.equals("true")) {
+					flag = true;
+				}
 				String code = in.nextLine();
 				List<StringProperty> tags = new ArrayList<>();
 				while (in.hasNext(TAG_MARKER)) {
 					in.nextLine();
 					tags.add(new SimpleStringProperty(in.nextLine()));
 				}
-				CodeSnippet snippet = new CodeSnippet(name, description, code, tags);
+				CodeSnippet snippet = new CodeSnippet(name, description, code, tags, flag);
 				this.replaceBreakingCharactersIn(snippet, false);
 				this.snippets.add(snippet);
 			}
@@ -116,6 +121,7 @@ public class TextFileDataStoreImplementation implements CodeSnippetDataStore {
 				this.replaceBreakingCharactersIn(snippet, true);
 				outWriter.println(snippet.getName());
 				outWriter.println(snippet.getDescription());
+				outWriter.println(String.valueOf(snippet.isFlagged()));
 				outWriter.println(snippet.getCode().getCodeText());
 				List<StringProperty> tags = snippet.getTags();
 				for (StringProperty nextTag : tags) {
