@@ -39,9 +39,9 @@ public class NetworkInterface {
 
 	public String requestServerDumpToJSONString() {
 		try {
-			comSocket = new Socket("localhost", portNumber);
-			out = new PrintStream(comSocket.getOutputStream());
-			in = new DataInputStream(new BufferedInputStream(comSocket.getInputStream()));
+			this.comSocket = new Socket("localhost", portNumber);
+			this.out = new PrintStream(comSocket.getOutputStream());
+			this.in = new DataInputStream(new BufferedInputStream(comSocket.getInputStream()));
 		} catch (UnknownHostException e) {
 			System.err.println("Don't know about host: hostname");
 		} catch (IOException e) {
@@ -60,9 +60,9 @@ public class NetworkInterface {
 
 	public boolean requestServerAdd(CodeSnippet toAdd) {
 		try {
-			comSocket = new Socket("localhost", portNumber);
-			out = new PrintStream(comSocket.getOutputStream());
-			in = new DataInputStream(new BufferedInputStream(comSocket.getInputStream()));
+			this.comSocket = new Socket("localhost", portNumber);
+			this.out = new PrintStream(comSocket.getOutputStream());
+			this.in = new DataInputStream(new BufferedInputStream(comSocket.getInputStream()));
 		} catch (UnknownHostException e) {
 			System.err.println("Don't know about host: hostname");
 		} catch (IOException e) {
@@ -85,9 +85,9 @@ public class NetworkInterface {
 
 	public boolean requestServerRemove(CodeSnippet toRemove) {
 		try {
-			comSocket = new Socket("localhost", portNumber);
-			out = new PrintStream(comSocket.getOutputStream());
-			in = new DataInputStream(new BufferedInputStream(comSocket.getInputStream()));
+			this.comSocket = new Socket("localhost", portNumber);
+			this.out = new PrintStream(comSocket.getOutputStream());
+			this.in = new DataInputStream(new BufferedInputStream(comSocket.getInputStream()));
 		} catch (UnknownHostException e) {
 			System.err.println("Don't know about host: hostname");
 		} catch (IOException e) {
@@ -111,9 +111,9 @@ public class NetworkInterface {
 	public boolean requestServerModify(CodeSnippet origonal, CodeSnippet changed) {
 
 		try {
-			comSocket = new Socket("localhost", portNumber);
-			out = new PrintStream(comSocket.getOutputStream());
-			in = new DataInputStream(new BufferedInputStream(comSocket.getInputStream()));
+			this.comSocket = new Socket("localhost", portNumber);
+			this.out = new PrintStream(comSocket.getOutputStream());
+			this.in = new DataInputStream(new BufferedInputStream(comSocket.getInputStream()));
 		} catch (UnknownHostException e) {
 			System.err.println("Don't know about host: hostname");
 		} catch (IOException e) {
@@ -138,15 +138,14 @@ public class NetworkInterface {
 	public boolean requestPKey() {
 
 		try {
-			comSocket = new Socket("localhost", portNumber);
-			out = new PrintStream(comSocket.getOutputStream());
-			in = new DataInputStream(new BufferedInputStream(comSocket.getInputStream()));
+			this.comSocket = new Socket("localhost", portNumber);
+			this.out = new PrintStream(comSocket.getOutputStream());
+			this.in = new DataInputStream(new BufferedInputStream(comSocket.getInputStream()));
 		} catch (UnknownHostException e) {
 			System.err.println("Don't know about host: hostname");
 		} catch (IOException e) {
 			System.err.println("Couldn't get I/O for the connection to: hostname");
 		}
-		String verification = null;
 		out.print("REQUEST_PKEY");
 		try {
 			this.serverPubKey = in.readUTF();
@@ -159,6 +158,10 @@ public class NetworkInterface {
 			return false;
 		}
 
+	}
+
+	public boolean logInToServer(String username, String password) {
+			return false;
 	}
 
 }

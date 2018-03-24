@@ -1,8 +1,16 @@
 package controller;
-
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.SecureRandom;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+
+
 
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -25,7 +33,9 @@ public class MainViewController {
 	private ObservableList<CodeSnippet> filteredData;
 	private ObservableList<CodeSnippet> flaggedData;
 	private TagIndex tagIndex;
-	/**
+	private PrivateKey privKey;
+	private PublicKey pubKey;
+/**
 	 * Initializes the controller by loading the code snippet data from the data-store.
 	 * @preconditions: 	filename != null
 	 * @postconditions: Code snippet data will be loaded into the data-store.
@@ -37,6 +47,19 @@ public class MainViewController {
 		this.tagIndex.populateIndex(this.dataStore);
 		this.unfilteredData = FXCollections.observableArrayList(CodeSnippet.extractor());
 		this.loadObservableData();
+		this.loadFlaggedData();
+		try {
+			KeyPairGenerator keyGen = KeyPairGenerator.getInstance("DSA", "SUN");
+			SecureRandom random = SecureRandom.getInstance("SHA1PRNG", "SUN");
+			keyGen.initialize(1024, random);
+			KeyPair pair = keyGen.generateKeyPair();
+			this.privKey = pair.getPrivate();
+			this.pubKey = pair.getPublic();
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		} catch (NoSuchProviderException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private void loadObservableData() {
