@@ -194,4 +194,5 @@ public class AdminTextFileDataStoreImplementation implements CodeSnippetDataStor
 		this.snippets.add(emptySnippet);
 		this.saveCodeSnippets();
 	}
+
 }

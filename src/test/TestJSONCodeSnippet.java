@@ -22,11 +22,23 @@ class TestJSONCodeSnippet {
 		testTags.add(tag);
 		tag2.setValue("tag 2");
 		testTags.add(tag2);
-		CodeSnippet testSnippet = new CodeSnippet("Test", "test", "test", testTags, true);
+		CodeSnippet testSnippet = new CodeSnippet("Test", "test", "test", testTags, true, false);
 		String testString = new Mediator().jsonStringFromSnippet(testSnippet);
-		String expectedJSON = "{\"name\":\"Test\",\"description\":\"test\",\"code\":\"test\",\"tags\":[\"tag 1\",\"tag 2\"],\"flagged\":true}";
-
+		String expectedJSON = "{\"name\":\"Test\",\"description\":\"test\",\"code\":\"test\",\"tags\":[\"tag 1\",\"tag 2\"],\"flagged\":true,\"toBeRemoved\":false,\"hash\":0}";
 		assert (testString.equals(expectedJSON));
 	}
-
+	@Test
+	void testWhenCreatingJSONFromCodeSnippetToBeDeleted() {
+		List<StringProperty> testTags = new ArrayList<StringProperty>();
+		StringProperty tag = new SimpleStringProperty();
+		StringProperty tag2 = new SimpleStringProperty();
+		tag.setValue("tag 1");
+		testTags.add(tag);
+		tag2.setValue("tag 2");
+		testTags.add(tag2);
+		CodeSnippet testSnippet = new CodeSnippet("Test", "test", "test", testTags, true, true);
+		String testString = new Mediator().jsonStringFromSnippet(testSnippet);
+		String expectedJSON = "{\"name\":\"Test\",\"description\":\"test\",\"code\":\"test\",\"tags\":[\"tag 1\",\"tag 2\"],\"flagged\":true,\"toBeRemoved\":true,\"hash\":3556498}";
+		assert (testString.equals(expectedJSON));
+	}
 }

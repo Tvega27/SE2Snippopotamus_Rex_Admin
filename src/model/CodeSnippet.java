@@ -24,7 +24,8 @@ public class CodeSnippet {
 	private ObjectProperty<Code> code;
 	private List<StringProperty> tags;
 	private boolean flagged;
-
+	private boolean toBeRemoved;
+	private int codeHash;
 	/**
 	 * Any ObservableList created with this callback will automatically refresh
 	 * itself when its list items change by reading each property in the CodeSnippet
@@ -35,6 +36,8 @@ public class CodeSnippet {
 	public static Callback<CodeSnippet, Observable[]> extractor() {
 		return (s) -> new Observable[] { s.getNameProperty(), s.getDescriptionProperty(), s.getCodeProperty() };
 	}
+
+
 
 	/**
 	 * Initializes a new CodeSnippet.
@@ -58,14 +61,26 @@ public class CodeSnippet {
 
 	public CodeSnippet(String name, String description, String codeText, List<StringProperty> tags, boolean flagged) {
 
+		this(name, description, codeText, tags, flagged, false);
+	}
+
+	public CodeSnippet(String name, String description, String codeText, List<StringProperty> tags, boolean flagged,
+			boolean toBeRemoved) {
+
 		this.name = new SimpleStringProperty(Objects.requireNonNull(name, "Name was null."));
 		this.description = new SimpleStringProperty(Objects.requireNonNull(description, "Description was null."));
 		Code theCode = new Code(Objects.requireNonNull(codeText, "Code text was null."));
 		this.code = new SimpleObjectProperty<>(theCode);
 		this.tags = tags;
-		this.setFlagged(Objects.requireNonNull(flagged));
+		this.toBeRemoved = Objects.requireNonNull(toBeRemoved);
+		this.flagged = (Objects.requireNonNull(flagged));
+		if (isToBeRemoved()) {
+			this.hashCodeText();
+		} else {
+			this.codeHash = 0;
+		}
+		
 	}
-
 
 	/**
 	 * Gets the name of the CodeSnippet.
@@ -170,12 +185,13 @@ public class CodeSnippet {
 	public String toString() {
 		return this.getName();
 	}
+
 	/**
 	 * Adds a tag to this CodeSnippet.
 	 * 
-	 * @preconditions: tag isn't null, and the code Snippet has been initialized 
+	 * @preconditions: tag isn't null, and the code Snippet has been initialized
 	 * @param tag
-	 * 			the tag to be applied
+	 *            the tag to be applied
 	 * @postconditions the passed tag is added to this object as a tag
 	 */
 	public void addTag(String tag) {
@@ -183,36 +199,37 @@ public class CodeSnippet {
 			this.tags.add(new SimpleStringProperty(Objects.requireNonNull(tag, "The tag was null")));
 		}
 	}
+
 	/**
 	 * Adds a tag to this CodeSnippet.
 	 * 
-	 * @preconditions: tag isn't null, and the code Snippet has been initialized 
+	 * @preconditions: tag isn't null, and the code Snippet has been initialized
 	 * @param tag
-	 * 			the tag to be applied
+	 *            the tag to be applied
 	 * @postconditions the passed tag is added to this object as a tag
 	 */
 	public void addTag(StringProperty tag) {
 		this.tags.add(Objects.requireNonNull(tag, "The tag was null"));
 	}
-	
+
 	/**
 	 * removes a tag from this CodeSnippet.
 	 * 
-	 * @preconditions: tag isn't null, and the code Snippet has been initialized 
+	 * @preconditions: tag isn't null, and the code Snippet has been initialized
 	 * @param tag
-	 * 			the tag to be removed
+	 *            the tag to be removed
 	 * @postconditions the passed tag is removed this object
 	 */
 	public void removeTag(String tag) {
 		this.tags.removeIf(aTag -> aTag.get().equals(tag));
 	}
-	
+
 	/**
 	 * removes a tag from this CodeSnippet.
 	 * 
-	 * @preconditions: tag isn't null, and the code Snippet has been initialized 
+	 * @preconditions: tag isn't null, and the code Snippet has been initialized
 	 * @param tag
-	 * 			the tag to be removed
+	 *            the tag to be removed
 	 * @postconditions the passed tag is removed this object
 	 */
 	public void removeTag(StringProperty tag) {
@@ -229,6 +246,12 @@ public class CodeSnippet {
 			}
 		}
 		return toReturn;
+	}
+	private void hashCodeText() {
+		if(this.code== null) {
+			throw new IllegalStateException("CodeSnippet has no code, this shouldn't ever happen");
+		}
+		this.codeHash = this.code.get().getCodeText().hashCode();
 	}
 
 	/**
@@ -248,4 +271,23 @@ public class CodeSnippet {
 	public void setFlagged(boolean flagged) {
 		this.flagged = flagged;
 	}
+
+	public boolean isToBeRemoved() {
+		return toBeRemoved;
+	}
+
+	public void setToBeRemoved(boolean toBeRemoved) {
+		
+		this.toBeRemoved = toBeRemoved;
+	}
+	public int getCodeHash() {
+		if(this.codeHash== 0) {
+			throw new IllegalStateException("Code has not been hashed");
+		}
+		return codeHash;
+	}
+	public void markForDeletion() {
+		this.hashCodeText();
+		this.toBeRemoved = true;
+}
 }

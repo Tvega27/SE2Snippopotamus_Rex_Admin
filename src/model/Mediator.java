@@ -122,6 +122,12 @@ public class Mediator {
 			}
 			obj.add("tags", array);
 			obj.addProperty("flagged", snippet.isFlagged());
+			obj.addProperty("toBeRemoved", snippet.isToBeRemoved());
+			if (snippet.isToBeRemoved()) {
+				obj.addProperty("hash", snippet.getCodeHash());
+			} else {
+				obj.addProperty("hash", 0);
+			}
 			return obj;
 		}
 
