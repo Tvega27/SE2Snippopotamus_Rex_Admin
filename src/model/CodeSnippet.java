@@ -66,7 +66,6 @@ public class CodeSnippet {
 		this.setFlagged(Objects.requireNonNull(flagged));
 	}
 
-	
 
 	/**
 	 * Gets the name of the CodeSnippet.
