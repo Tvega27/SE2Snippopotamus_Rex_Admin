@@ -1,13 +1,19 @@
 package model;
 
 import java.net.InetAddress;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
 public class LocalDemoMediator implements Mediator {
 
-	List<CodeSnippet> serverFiles;
+	private List<CodeSnippet> serverFiles;
+	private boolean loggedIn;
+
+	public LocalDemoMediator() {
+		this(new ArrayList<CodeSnippet>());
+	}
 
 	public LocalDemoMediator(List<CodeSnippet> toPopulate) {
 
@@ -17,6 +23,10 @@ public class LocalDemoMediator implements Mediator {
 	@Override
 	public boolean isReachable() {
 		return true;
+	}
+
+	public boolean isLoggedIn() {
+		return loggedIn;
 	}
 
 	@Override
@@ -51,15 +61,15 @@ public class LocalDemoMediator implements Mediator {
 
 	@Override
 	public boolean requestPKey() {
-    return true;
+		return true;
 	}
 
 	@Override
 	public boolean logInToServer(String username, String password) {
-			if(username == "user" && password == "pass") {
-				return true;
-			}
-			return false;
+		if (username == "user" && password == "pass") {
+			return true;
+		}
+		return false;
 	}
 
 	@Override
