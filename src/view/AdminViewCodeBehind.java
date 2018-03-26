@@ -39,7 +39,7 @@ public class AdminViewCodeBehind {
     
     @FXML
     private void initialize() {
-    	this.controller = new MainViewController("testing.dat");
+    	this.controller = new MainViewController("../data.dat");
     	this.selected = null;
     	this.initializeListView();
     	this.initializeListeners();
