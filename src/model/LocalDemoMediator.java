@@ -24,6 +24,15 @@ public class LocalDemoMediator implements Mediator {
 		this.loggedIn = false;
 		this.populate();
 	}
+	
+	/**
+	 * Returns the server files.
+	 * 
+	 * @return the server files.
+	 */
+	public List<CodeSnippet> getServerFiles() {
+		return this.serverFiles;
+	}
 
 	@Override
 	public boolean isReachable() {

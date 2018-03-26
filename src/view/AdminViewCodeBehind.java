@@ -42,7 +42,7 @@ public class AdminViewCodeBehind {
     
     @FXML
     private void initialize() {
-    	this.controller = new MainViewController("../data.dat");
+    	this.controller = new MainViewController();
     	this.selected = null;
     	this.initializeListView();
     	this.updateView(null);
@@ -54,22 +54,22 @@ public class AdminViewCodeBehind {
 	}
 
     @FXML
-    void approveSnippetButtonClick(ActionEvent event) {
+    private void approveSnippetButtonClick(ActionEvent event) {
 
     }
 
     @FXML
-    void denySnippetButtonClick(ActionEvent event) {
+    private void denySnippetButtonClick(ActionEvent event) {
 
     }
 
     @FXML
-    void loadFlaggedButtonClick(ActionEvent event) {
-
+    private void loadFlaggedButtonClick(ActionEvent event) {
+    	this.snippetListView.setItems(this.controller.getFlaggedData());
     }
 
     @FXML
-    void updateView(MouseEvent event) {
+    private void updateView(MouseEvent event) {
 		if (this.selected != null) {
 			this.lblSnippetName.textProperty().unbindBidirectional(this.selected.getNameProperty());
 		}
