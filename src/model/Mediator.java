@@ -1,12 +1,13 @@
 package model;
 
 import java.net.InetAddress;
+import java.util.List;
 
 public interface Mediator {
 
 	public boolean isReachable();
 
-	public boolean requestServerDumpToJSONString();
+	public List<CodeSnippet> requestServerDump();
 
 	public boolean requestServerAdd(CodeSnippet toAdd);
 
