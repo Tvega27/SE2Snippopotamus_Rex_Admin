@@ -1,10 +1,10 @@
 package view;
 
 import controller.MainViewController;
-import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
@@ -33,6 +33,9 @@ public class AdminViewCodeBehind {
     @FXML
     private TextArea snippetDetailsTxtArea;
     
+    @FXML
+    private Label lblSnippetName;
+    
     private MainViewController controller;
     
     private CodeSnippet selected;
@@ -42,22 +45,12 @@ public class AdminViewCodeBehind {
     	this.controller = new MainViewController("../data.dat");
     	this.selected = null;
     	this.initializeListView();
-    	this.initializeListeners();
     	this.updateView(null);
     }
     
 	private void initializeListView() {
 		this.snippetListView.setItems(this.controller.getObservableList());
 		this.snippetListView.getSelectionModel().selectFirst();
-	}
-    
-	private void initializeListeners() {
-		ChangeListener<Boolean> updateSnippetOnLoseFocus = (observable, oldState, hasFocus) -> {
-			if (!hasFocus) {
-				this.controller.storeCodeSnippet(this.selected);
-			}
-		};
-		this.snippetDetailsTxtArea.focusedProperty().addListener(updateSnippetOnLoseFocus);
 	}
 
     @FXML
@@ -77,7 +70,11 @@ public class AdminViewCodeBehind {
 
     @FXML
     void updateView(MouseEvent event) {
-
+		if (this.selected != null) {
+			this.lblSnippetName.textProperty().unbindBidirectional(this.selected.getNameProperty());
+		}
+		this.selected = this.snippetListView.selectionModelProperty().getValue().getSelectedItem();
+		this.lblSnippetName.textProperty().bindBidirectional(this.selected.getNameProperty());
     }
 
 }

@@ -73,6 +73,15 @@ public class MainViewController {
 	}
 
 	/**
+	 * Returns the flagged code snippets
+	 * 
+	 * @return the flagged code snippets
+	 */
+	public ObservableList<CodeSnippet> getFlaggedData() {
+		return this.flaggedData;
+	}
+
+	/**
 	 * Returns the observable CodeSnippet list.
 	 * 
 	 * @preconditions: None

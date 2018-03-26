@@ -21,19 +21,19 @@
                         <Insets />
                      </opaqueInsets>
                   </ListView>
-                  <Button fx:id="approveSnippetButton" layoutX="102.0" layoutY="451.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#approveSnippetButtonClick" prefHeight="30.0" prefWidth="92.0" text="Approve" />
-                  <Button fx:id="denySnippetButton" layoutX="195.0" layoutY="451.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#denySnippetButtonClick" prefHeight="30.0" prefWidth="92.0" text="Deny" />
+                  <Button fx:id="approveSnippetButton" disable="true" layoutX="102.0" layoutY="451.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#approveSnippetButtonClick" prefHeight="30.0" prefWidth="92.0" text="Approve" />
+                  <Button fx:id="denySnippetButton" disable="true" layoutX="195.0" layoutY="451.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#denySnippetButtonClick" prefHeight="30.0" prefWidth="92.0" text="Deny" />
                   <Button fx:id="loadFlaggedSnippetBtn" layoutX="139.0" layoutY="39.0" mnemonicParsing="false" onAction="#loadFlaggedButtonClick" text="Load Flagged" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="408.0" prefWidth="615.0">
                <children>
-                  <Label layoutX="177.0" layoutY="14.0" text="Snippet Details:">
+                  <TextArea fx:id="snippetDetailsTxtArea" layoutX="7.0" layoutY="103.0" prefHeight="337.0" prefWidth="461.0" />
+                  <Label fx:id="lblSnippetName" alignment="CENTER" layoutX="3.0" layoutY="7.0" prefHeight="31.0" prefWidth="469.0" text="Name" textAlignment="CENTER">
                      <font>
-                        <Font size="18.0" />
+                        <Font size="20.0" />
                      </font>
                   </Label>
-                  <TextArea fx:id="snippetDetailsTxtArea" layoutX="7.0" layoutY="103.0" prefHeight="337.0" prefWidth="461.0" />
                </children>
             </AnchorPane>
         </items>
