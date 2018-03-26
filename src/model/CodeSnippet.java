@@ -26,6 +26,10 @@ public class CodeSnippet {
 	private boolean flagged;
 	private boolean toBeRemoved;
 	private int codeHash;
+
+
+
+
 	/**
 	 * Any ObservableList created with this callback will automatically refresh
 	 * itself when its list items change by reading each property in the CodeSnippet
@@ -251,7 +255,7 @@ public class CodeSnippet {
 		if(this.code== null) {
 			throw new IllegalStateException("CodeSnippet has no code, this shouldn't ever happen");
 		}
-		this.codeHash = this.code.get().getCodeText().hashCode();
+		this.codeHash = this.code.get().getCodeText().replaceAll("\\s","").hashCode();
 	}
 
 	/**
@@ -281,13 +285,14 @@ public class CodeSnippet {
 		this.toBeRemoved = toBeRemoved;
 	}
 	public int getCodeHash() {
-		if(this.codeHash== 0) {
-			throw new IllegalStateException("Code has not been hashed");
-		}
+
 		return codeHash;
 	}
 	public void markForDeletion() {
 		this.hashCodeText();
 		this.toBeRemoved = true;
 }
+	public void setCodeHash(int codeHash) {
+		this.codeHash = codeHash;
+	}
 }
