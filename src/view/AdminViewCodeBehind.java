@@ -96,12 +96,8 @@ public class AdminViewCodeBehind {
     private void loadFlaggedButtonClick(ActionEvent event) {
     	if(this.rbtnFlaggedFilter.isSelected()) {
     		this.snippetListView.setItems(this.controller.getFlaggedData());
-        	this.approveSnippetButton.setDisable(false);
-        	this.denySnippetButton.setDisable(false);
     	} else {
     		this.snippetListView.setItems(this.controller.getObservableList());
-    		this.approveSnippetButton.setDisable(true);
-        	this.denySnippetButton.setDisable(true);
     	}
     }
 

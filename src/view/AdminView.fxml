@@ -20,33 +20,30 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="509.0" prefWidth="328.0">
                <children>
-                  <ListView fx:id="snippetListView" layoutX="9.0" layoutY="101.0" onMouseClicked="#updateView" prefHeight="337.0" prefWidth="185.0">
+                  <ListView fx:id="snippetListView" layoutX="9.0" layoutY="45.0" onMouseClicked="#updateView" prefHeight="458.0" prefWidth="185.0">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
                   </ListView>
-                  <Button fx:id="approveSnippetButton" disable="true" layoutX="9.0" layoutY="451.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#approveSnippetButtonClick" prefHeight="30.0" prefWidth="92.0" text="Approve" />
-                  <Button fx:id="denySnippetButton" disable="true" layoutX="101.0" layoutY="451.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#denySnippetButtonClick" prefHeight="30.0" prefWidth="92.0" text="Deny" />
-                  <RadioButton fx:id="rbtnFlaggedFilter" layoutX="12.0" layoutY="67.0" mnemonicParsing="false" onAction="#loadFlaggedButtonClick" text="Flagged Snippets" />
+                  <RadioButton fx:id="rbtnFlaggedFilter" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#loadFlaggedButtonClick" text="Flagged Snippets" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="408.0" prefWidth="615.0">
                <children>
-                  <TextArea fx:id="snippetDetailsTxtArea" layoutX="7.0" layoutY="103.0" prefHeight="337.0" prefWidth="405.0" />
+                  <TextArea fx:id="snippetDetailsTxtArea" layoutX="7.0" layoutY="49.0" prefHeight="391.0" prefWidth="405.0" />
                   <Label fx:id="lblSnippetName" alignment="CENTER" layoutX="3.0" layoutY="7.0" prefHeight="31.0" prefWidth="665.0" text="Name" textAlignment="CENTER">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <Accordion fx:id="detailsAccordian" layoutX="419.0" layoutY="103.0" prefHeight="337.0" prefWidth="240.0">
+                  <Accordion fx:id="detailsAccordian" layoutX="419.0" layoutY="49.0" prefHeight="391.0" prefWidth="240.0">
                     <panes>
                       <TitledPane fx:id="tagsTitlePane" animated="false" expanded="true" text="Tags">
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <ListView fx:id="tagListView" layoutX="8.0" layoutY="9.0" prefHeight="229.0" prefWidth="223.0" />
-                                    <Button fx:id="btnAddTag" layoutX="64.0" layoutY="238.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="55.0" text="+" />
-                                    <Button fx:id="btnRemoveTag" layoutX="119.0" layoutY="238.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="55.0" text="-" />
+                                    <ListView fx:id="tagListView" layoutX="8.0" layoutY="9.0" prefHeight="264.0" prefWidth="223.0" />
+                                    <Button fx:id="btnRemoveTag" layoutX="73.0" layoutY="283.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="92.0" text="Remove" />
                                  </children>
                               </AnchorPane>
                         </content>
@@ -62,6 +59,8 @@
                       </TitledPane>
                     </panes>
                   </Accordion>
+                  <Button fx:id="denySnippetButton" layoutX="356.0" layoutY="453.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#denySnippetButtonClick" prefHeight="43.0" prefWidth="126.0" text="Deny" />
+                  <Button fx:id="approveSnippetButton" layoutX="147.0" layoutY="453.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#approveSnippetButtonClick" prefHeight="43.0" prefWidth="126.0" text="Approve" />
                </children>
             </AnchorPane>
         </items>
