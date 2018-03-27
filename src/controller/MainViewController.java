@@ -23,7 +23,6 @@ public class MainViewController {
 	private ObservableList<CodeSnippet> unfilteredData;
 	private ObservableList<CodeSnippet> filteredData;
 	private ObservableList<CodeSnippet> flaggedData;
-	private ObservableList<CodeSnippet> toBeRemoved;
 
 	/**
 	 * Initializes the controller by loading the code snippet data from the
@@ -37,7 +36,6 @@ public class MainViewController {
 	public MainViewController() {
 		this.mediator = new LocalDemoMediator();
 		this.unfilteredData = FXCollections.observableArrayList(CodeSnippet.extractor());
-		this.toBeRemoved = FXCollections.observableArrayList();
 		this.flaggedData = FXCollections.observableArrayList(CodeSnippet.extractor());
 		this.loadObservableData();
 		this.loadFlaggedData();
