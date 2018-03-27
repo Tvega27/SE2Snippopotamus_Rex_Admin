@@ -68,10 +68,13 @@ public class AdminViewCodeBehind {
     
     private CodeSnippet selected;
     
+    private String selectedTag;
+    
     @FXML
     private void initialize() {
     	this.controller = new MainViewController();
     	this.selected = null;
+    	this.selectedTag = null;
     	this.detailsAccordian.setExpandedPane(tagsTitlePane);
     	this.initializeListView();
     	this.updateView(null);
@@ -85,16 +88,18 @@ public class AdminViewCodeBehind {
     @FXML
     private void approveSnippetButtonClick(ActionEvent event) {
     	this.selected.setToBeRemoved(false);
-    	this.controller.relayApprovalDecision(this.selected);
+    	this.selected.setFlagged(false);
+    	this.controller.relaySnippetUpdate(this.selected);
     	this.snippetDetailsTxtArea.setText("Snippet Approved");
+    	this.loadFlaggedButtonClick(event);
     }
 
     @FXML
     private void denySnippetButtonClick(ActionEvent event) {
     	this.selected.setToBeRemoved(true);
-    	this.controller.relayApprovalDecision(this.selected);
+    	this.controller.relaySnippetUpdate(this.selected);
     	this.snippetDetailsTxtArea.setText("Snippet Denied");
-    	this.snippetListView.setItems(this.controller.getFlaggedData());
+    	this.loadFlaggedButtonClick(event);
     }
 
     @FXML
@@ -105,6 +110,13 @@ public class AdminViewCodeBehind {
     		this.snippetListView.setItems(this.controller.getObservableList());
     	}
     }
+    
+    @FXML
+    private void removeTagButtonClick(ActionEvent event) {
+    	this.selected.removeTag(this.selectedTag);
+    	this.controller.relaySnippetUpdate(this.selected);
+    	this.tagListView.setItems(this.controller.loadTagData(this.selected));
+    }
 
     @FXML
     private void updateView(MouseEvent event) {
@@ -113,10 +125,13 @@ public class AdminViewCodeBehind {
 			this.nameTextField.textProperty().unbindBidirectional(this.selected.getNameProperty());
 		}
 		this.selected = this.snippetListView.selectionModelProperty().getValue().getSelectedItem();
+		
 		this.lblSnippetName.textProperty().bindBidirectional(this.selected.getNameProperty());
 		this.snippetDetailsTxtArea.textProperty().setValue(this.selected.getCode().getCodeText());
 		this.nameTextField.textProperty().bindBidirectional(this.selected.getNameProperty());
+		
 		this.tagListView.setItems(this.controller.loadTagData(this.selected));
+		this.selectedTag = this.tagListView.selectionModelProperty().getValue().getSelectedItem();
     }
 
 }

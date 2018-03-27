@@ -106,7 +106,7 @@ public class MainViewController {
 	 * @postcondition If approved the snippet remains in the server, If denied the
 	 *                snippet is removed.
 	 */
-	public void relayApprovalDecision(CodeSnippet snippet) {
+	public void relaySnippetUpdate(CodeSnippet snippet) {
 		this.mediator.requestServerUpdateSnippet(snippet);
 		this.loadObservableData();
 		this.loadFlaggedData();
