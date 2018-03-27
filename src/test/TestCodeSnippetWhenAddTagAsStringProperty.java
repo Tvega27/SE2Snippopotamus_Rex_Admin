@@ -39,7 +39,6 @@ class TestCodeSnippetWhenAddTagAsStringProperty {
 	@Test
 	void testAddTagToCodeSnippetAlreadyContainingTag() {
 		String test = "Test tag";
-		StringProperty tag = new SimpleStringProperty(test);
 		this.cs.addTag(test);
 		
 		String test2 = "Test tag";
