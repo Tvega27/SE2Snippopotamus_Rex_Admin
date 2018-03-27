@@ -27,9 +27,6 @@ public class CodeSnippet {
 	private boolean toBeRemoved;
 	private int codeHash;
 
-
-
-
 	/**
 	 * Any ObservableList created with this callback will automatically refresh
 	 * itself when its list items change by reading each property in the CodeSnippet
@@ -40,8 +37,6 @@ public class CodeSnippet {
 	public static Callback<CodeSnippet, Observable[]> extractor() {
 		return (s) -> new Observable[] { s.getNameProperty(), s.getDescriptionProperty(), s.getCodeProperty() };
 	}
-
-
 
 	/**
 	 * Initializes a new CodeSnippet.
@@ -54,6 +49,14 @@ public class CodeSnippet {
 	 *            A description of what the CodeSnippet is/does.
 	 * @param codeText
 	 *            The actual code stored in the CodeSnippet.
+	 * @param tags
+	 *            A list of tags belonging to the code snippet
+	 * @param flagged
+	 *            indicates if the snippet has been flagged for review
+	 * @param toBeRemoved
+	 *            indicates if the snippet is to be removed from the server. It is
+	 *            not recommended that this param be used in constructing a code
+	 *            snippet
 	 */
 	public CodeSnippet(String name, String description, String codeText) {
 		this(name, description, codeText, new ArrayList<StringProperty>());
@@ -81,9 +84,9 @@ public class CodeSnippet {
 		if (isToBeRemoved()) {
 			this.hashCodeText();
 		} else {
-			this.codeHash = 0;
+			this.codeHash = -1;
 		}
-		
+
 	}
 
 	/**
@@ -251,11 +254,12 @@ public class CodeSnippet {
 		}
 		return toReturn;
 	}
+
 	private void hashCodeText() {
-		if(this.code == null) {
-			throw new IllegalStateException("CodeSnippet has no code, this shouldn't ever happen");
+		if (this.code == null) {
+			throw new IllegalStateException("CodeSnippet has no code, this shouldn't be possible");
 		}
-		this.codeHash = this.code.get().getCodeText().replaceAll("\\s","").hashCode();
+		this.codeHash = this.code.get().getCodeText().replaceAll("\\s", "").hashCode();
 	}
 
 	/**
@@ -268,31 +272,75 @@ public class CodeSnippet {
 		return this.tags;
 	}
 
+	/**
+	 * Gets the state of the flag for this snippet
+	 * 
+	 * @preconditions: the code Snippet has been initialized
+	 * @return the flag state for the snippet.
+	 */
 	public boolean isFlagged() {
 		return flagged;
 	}
 
+	/**
+	 * Sets the flag for this snippet.
+	 * 
+	 * @preconditions: flagged isn't null, and the code Snippet has been initialized
+	 * @param flagged
+	 *            the tag to be applied
+	 * @postconditions the passed flag is set on this object
+	 */
 	public void setFlagged(boolean flagged) {
+		Objects.requireNonNull(flagged);
+
 		this.flagged = flagged;
 	}
 
+	/**
+	 * Gets the state of the Removal value for this snippet
+	 * 
+	 * @preconditions: the code Snippet has been initialized
+	 * @return The state of the codes removal value .
+	 */
 	public boolean isToBeRemoved() {
 		return toBeRemoved;
 	}
 
+	/**
+	 * Sets if the snippet is marked for removal.
+	 * 
+	 * @preconditions: toBeRemoved isn't null, and the code Snippet has been
+	 *                 initialized
+	 * @param toBeRemoved
+	 *            the value for removal
+	 * @postconditions the passed removal toggle is set on this object
+	 */
 	public void setToBeRemoved(boolean toBeRemoved) {
-		
+		Objects.requireNonNull(toBeRemoved);
 		this.toBeRemoved = toBeRemoved;
 	}
+	/**
+	 * gets the hash of the code snippet.
+	 * 
+	 * @preconditions: the code Snippet has been
+	 *                 initialized
+	 * @return returns the hash of the code text / -1 if the code hasn't been hashed.
+	 */
 	public int getCodeHash() {
 
 		return codeHash;
 	}
+
+	/**
+	 * Marks the snippet for deletion, and hashes the codetext.
+	 * 
+	 * @preconditions: The code Snippet has been initialized
+	 * @postconditions the snippet's codetext is hashed, and the snippet is marked
+	 *                 for removal
+	 */
 	public void markForDeletion() {
 		this.hashCodeText();
 		this.toBeRemoved = true;
-}
-	public void setCodeHash(int codeHash) {
-		this.codeHash = codeHash;
 	}
+
 }
