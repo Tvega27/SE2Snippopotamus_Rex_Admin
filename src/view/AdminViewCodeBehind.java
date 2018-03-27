@@ -113,8 +113,10 @@ public class AdminViewCodeBehind {
     
     @FXML
     private void removeTagButtonClick(ActionEvent event) {
+    	this.selectedTag = this.tagListView.selectionModelProperty().getValue().getSelectedItem();
     	this.selected.removeTag(this.selectedTag);
     	this.controller.relaySnippetUpdate(this.selected);
+    	this.loadFlaggedButtonClick(event);
     	this.tagListView.setItems(this.controller.loadTagData(this.selected));
     }
 
