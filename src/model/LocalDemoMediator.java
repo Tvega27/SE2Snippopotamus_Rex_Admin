@@ -1,6 +1,5 @@
 package model;
 
-import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -12,7 +11,6 @@ import javafx.beans.property.StringProperty;
 public class LocalDemoMediator implements Mediator {
 
 	private List<CodeSnippet> serverFiles;
-	private boolean loggedIn;
 
 	public LocalDemoMediator() {
 		this(new ArrayList<CodeSnippet>());
@@ -21,27 +19,11 @@ public class LocalDemoMediator implements Mediator {
 	public LocalDemoMediator(List<CodeSnippet> toPopulate) {
 
 		this.serverFiles = Objects.requireNonNull(toPopulate);
-		this.loggedIn = false;
 		this.populate();
 	}
 	
-	/**
-	 * Returns the server files.
-	 * 
-	 * @return the server files.
-	 */
-	public List<CodeSnippet> getServerFiles() {
-		return this.serverFiles;
-	}
 
-	@Override
-	public boolean isReachable() {
-		return true;
-	}
 
-	public boolean isLoggedIn() {
-		return loggedIn;
-	}
 
 	@Override
 	public List<CodeSnippet> requestServerDump() {
@@ -66,55 +48,6 @@ public class LocalDemoMediator implements Mediator {
 			}
 		}
 		return toReturn;
-	}
-
-	@Override
-	public boolean requestServerModify(CodeSnippet origonal, CodeSnippet changed) {
-		return false;
-	}
-
-	@Override
-	public boolean requestPKey() {
-		return true;
-	}
-
-	@Override
-	public boolean logInToServer(String username, String password) {
-		if (username == "user" && password == "pass") {
-			this.loggedIn = true;
-			return true;
-		}
-		return false;
-	}
-
-	@Override
-	public InetAddress getServerAddress() {
-		return null;
-	}
-
-	@Override
-	public void setServerAddress(InetAddress serverAddress) {
-		throw new UnsupportedOperationException("Demo Mediator does not support this opperation");
-	}
-
-	@Override
-	public int getPortNumber() {
-		return 0;
-	}
-
-	@Override
-	public void setPortNumber(int portNumber) {
-		throw new UnsupportedOperationException("Demo Mediator does not support this opperation");
-	}
-
-	@Override
-	public String getServerPubKey() {
-		return null;
-	}
-
-	@Override
-	public void setServerPubKey(String serverPubKey) {
-		throw new UnsupportedOperationException("Demo Mediator does not support this opperation");
 	}
 
 	private void populate() {
