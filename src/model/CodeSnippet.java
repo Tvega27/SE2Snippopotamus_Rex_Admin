@@ -252,7 +252,7 @@ public class CodeSnippet {
 		return toReturn;
 	}
 	private void hashCodeText() {
-		if(this.code== null) {
+		if(this.code == null) {
 			throw new IllegalStateException("CodeSnippet has no code, this shouldn't ever happen");
 		}
 		this.codeHash = this.code.get().getCodeText().replaceAll("\\s","").hashCode();

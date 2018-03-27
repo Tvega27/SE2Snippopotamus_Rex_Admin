@@ -46,6 +46,7 @@ public class Code {
 	/**
 	 * Returns true if this code object contains the supplied queryText in any
 	 * position or form, including text buried within substrings.
+	 * @precondition queryText != null
 	 * @param queryText The text being searched for.
 	 * @return True if queryText is found anywhere in the code, and false otherwise.
 	 */

@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import model.CodeSnippet;
 
-class CodeSnippetWhenToString {
+class TestCodeSnippetWhenToString {
 	private CodeSnippet cs;
 	
 	@BeforeEach
