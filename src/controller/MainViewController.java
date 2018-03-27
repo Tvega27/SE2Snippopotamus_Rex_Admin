@@ -72,7 +72,7 @@ public class MainViewController {
 	public ObservableList<String> loadTagData(CodeSnippet snippet) {
 		ArrayList<String> allTags = new ArrayList<String>();
 		for (StringProperty tag : snippet.getTags()) {
-			String aTag = tag.toString();
+			String aTag = tag.getValueSafe();
 			allTags.add(aTag);
 		}
 		return FXCollections.observableArrayList(allTags);
