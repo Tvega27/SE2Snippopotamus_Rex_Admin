@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import model.CodeSnippet;
@@ -35,6 +36,9 @@ public class AdminViewCodeBehind {
     
     @FXML
     private Label lblSnippetName;
+    
+    @FXML
+    private RadioButton rbtnFlaggedFilter;
     
     private MainViewController controller;
     
@@ -66,6 +70,8 @@ public class AdminViewCodeBehind {
     @FXML
     private void loadFlaggedButtonClick(ActionEvent event) {
     	this.snippetListView.setItems(this.controller.getFlaggedData());
+    	this.approveSnippetButton.setDisable(false);
+    	this.denySnippetButton.setDisable(false);
     }
 
     @FXML
@@ -75,6 +81,7 @@ public class AdminViewCodeBehind {
 		}
 		this.selected = this.snippetListView.selectionModelProperty().getValue().getSelectedItem();
 		this.lblSnippetName.textProperty().bindBidirectional(this.selected.getNameProperty());
+		this.snippetDetailsTxtArea.textProperty().setValue(this.selected.getCode().getCodeText());
     }
 
 }
