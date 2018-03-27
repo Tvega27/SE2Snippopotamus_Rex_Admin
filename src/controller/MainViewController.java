@@ -44,6 +44,7 @@ public class MainViewController {
 	}
 
 	private void loadObservableData() {
+		this.unfilteredData = FXCollections.observableArrayList(CodeSnippet.extractor());
 		for (CodeSnippet current : this.mediator.requestServerDump()) {
 			this.unfilteredData.add(current);
 		}
@@ -51,6 +52,7 @@ public class MainViewController {
 	}
 
 	private void loadFlaggedData() {
+		this.flaggedData = FXCollections.observableArrayList(CodeSnippet.extractor());
 		for (CodeSnippet current : this.mediator.requestServerDump()) {
 			if (current.isFlagged()) {
 
@@ -69,7 +71,7 @@ public class MainViewController {
 	 */
 	public ObservableList<String> loadTagData(CodeSnippet snippet) {
 		ArrayList<String> allTags = new ArrayList<String>();
-		for(StringProperty tag : snippet.getTags()) {
+		for (StringProperty tag : snippet.getTags()) {
 			String aTag = tag.toString();
 			allTags.add(aTag);
 		}
@@ -93,6 +95,21 @@ public class MainViewController {
 	 */
 	public ObservableList<CodeSnippet> getObservableList() {
 		return this.observableData;
+	}
+
+	/**
+	 * Relays the approval or denial of a snippet to the mediator.
+	 * 
+	 * @param snippet
+	 *            the snippet
+	 * 
+	 * @postcondition If approved the snippet remains in the server, If denied the
+	 *                snippet is removed.
+	 */
+	public void relayApprovalDecision(CodeSnippet snippet) {
+		this.mediator.requestServerUpdateSnippet(snippet);
+		this.loadObservableData();
+		this.loadFlaggedData();
 	}
 
 	/**
