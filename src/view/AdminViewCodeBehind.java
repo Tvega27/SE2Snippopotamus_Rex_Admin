@@ -115,6 +115,7 @@ public class AdminViewCodeBehind {
 		this.lblSnippetName.textProperty().bindBidirectional(this.selected.getNameProperty());
 		this.snippetDetailsTxtArea.textProperty().setValue(this.selected.getCode().getCodeText());
 		this.nameTextField.textProperty().bindBidirectional(this.selected.getNameProperty());
+		this.tagListView.setItems(this.controller.loadTagData(this.selected));
     }
 
 }
