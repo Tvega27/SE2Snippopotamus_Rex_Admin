@@ -14,11 +14,8 @@ import java.util.Objects;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import model.AdminTextFileDataStoreImplementation;
 import model.CodeSnippet;
-import model.CodeSnippetDataStore;
 import model.LocalDemoMediator;
-import model.TagIndex;
 
 /**
  * Controller for the main view.
@@ -34,7 +31,6 @@ public class MainViewController {
 	private ObservableList<CodeSnippet> filteredData;
 	private ObservableList<CodeSnippet> flaggedData;
 	private ObservableList<CodeSnippet> toBeRemoved;
-	private TagIndex tagIndex;
 
 	/**
 	 * Initializes the controller by loading the code snippet data from the
@@ -55,14 +51,14 @@ public class MainViewController {
 	}
 
 	private void loadObservableData() {
-		for (CodeSnippet current : this.mediator.getServerFiles()) {
+		for (CodeSnippet current : this.mediator.requestServerDump()) {
 			this.unfilteredData.add(current);
 		}
 		this.observableData = this.unfilteredData;
 	}
 
 	private void loadFlaggedData() {
-		for (CodeSnippet current : this.mediator.getServerFiles()) {
+		for (CodeSnippet current : this.mediator.requestServerDump()) {
 			if (current.isFlagged()) {
 
 				this.flaggedData.add(current);
@@ -111,29 +107,6 @@ public class MainViewController {
 			});
 			this.observableData = this.filteredData;
 		}
-	}
-
-	/**
-	 * Returns the TagIndex object in this controller.
-	 * 
-	 * @preconditions: None
-	 * @return The TagIndex
-	 */
-	public TagIndex getTagIndex() {
-		return tagIndex;
-	}
-
-	/**
-	 * Gets a list of all tags that currently exist in the program.
-	 * 
-	 * @preconditions: None
-	 * @return The list of tags.
-	 */
-	public ObservableList<String> getAllExistingTags() {
-		HashSet<String> tags = this.tagIndex.getAllTags();
-		ObservableList<String> allTags = FXCollections.observableArrayList();
-		tags.forEach(tag -> allTags.add(tag));
-		return allTags;
 	}
 
 	/**
