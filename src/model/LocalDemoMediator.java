@@ -12,21 +12,43 @@ public class LocalDemoMediator implements Mediator {
 
 	private List<CodeSnippet> serverFiles;
 
+	/**
+	 * Initializes a new LocalDemoMediator.
+	 * 
+	 * @preconditions: name != null && description != null && codeText != null
+	 * 
+	 * @param name
+	 *            The name of the CodeSnippet.
+	 * 
+	 * @postconditions: Object will be initialized and ready for use.
+	 */
 	public LocalDemoMediator() {
-		this(new ArrayList<CodeSnippet>());
+		this(new ArrayList<CodeSnippet>(0));
 	}
 
 	public LocalDemoMediator(List<CodeSnippet> toPopulate) {
-
 		this.serverFiles = Objects.requireNonNull(toPopulate);
-		this.populate();
-	}
+		if (toPopulate.size() == 0) {
+			this.populate();
+		}
 
+	}
+	/**
+	 * Gets the list of snippets stored in the demo mediator.
+	 * 
+	 * @preconditions: the DemoMediator has been initialized
+	 * @return The list of snippets stored in the demo mediator.
+	 */
 	@Override
 	public List<CodeSnippet> requestServerDump() {
 		return this.serverFiles;
 	}
-
+	/**
+	 * Requests that the mediator update it's list of snippits.
+	 * 
+	 * @preconditions: the DemoMediator has been initialized && toUpdate!= null
+	 * @return false if the snippet isn't contained in the mediator, otherwise true
+	 */
 	@Override
 	public boolean requestServerUpdateSnippet(CodeSnippet toUpdate) {
 
@@ -40,9 +62,8 @@ public class LocalDemoMediator implements Mediator {
 		} else {
 			this.serverFiles.set(snippetIndex, toUpdate);
 		}
-		
 
-		return false;
+		return true;
 	}
 
 	private void populate() {
