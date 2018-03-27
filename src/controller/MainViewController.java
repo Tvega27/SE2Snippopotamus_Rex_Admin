@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -57,6 +58,22 @@ public class MainViewController {
 			}
 
 		}
+	}
+
+	/**
+	 * Returns the tags associated with the specified snippet.
+	 * 
+	 * @param snippet
+	 *            the code snippet
+	 * @return An observable list of the tags of the specified snippet.
+	 */
+	public ObservableList<String> loadTagData(CodeSnippet snippet) {
+		ArrayList<String> allTags = new ArrayList<String>();
+		for(StringProperty tag : snippet.getTags()) {
+			String aTag = tag.toString();
+			allTags.add(aTag);
+		}
+		return FXCollections.observableArrayList(allTags);
 	}
 
 	/**
