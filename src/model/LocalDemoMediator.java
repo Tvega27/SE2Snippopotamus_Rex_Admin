@@ -21,9 +21,6 @@ public class LocalDemoMediator implements Mediator {
 		this.serverFiles = Objects.requireNonNull(toPopulate);
 		this.populate();
 	}
-	
-
-
 
 	@Override
 	public List<CodeSnippet> requestServerDump() {
@@ -31,23 +28,21 @@ public class LocalDemoMediator implements Mediator {
 	}
 
 	@Override
-	public boolean requestServerAdd(CodeSnippet toAdd) {
-		this.serverFiles.add(Objects.requireNonNull(toAdd));
-		return true;
-	}
+	public boolean requestServerUpdateSnippet(CodeSnippet toUpdate) {
 
-	@Override
-	public boolean requestServerRemove(CodeSnippet toRemove) {
-		boolean toReturn = false;
-		for (Iterator<CodeSnippet> iter = this.serverFiles.listIterator(); iter.hasNext();) {
-			CodeSnippet curr = iter.next();
-			if (curr.equals(toRemove)) {
-				iter.remove();
-				toReturn = true;
-
-			}
+		Objects.requireNonNull(toUpdate);
+		int snippetIndex = this.serverFiles.indexOf(toUpdate);
+		if (snippetIndex == -1) {
+			return false;
 		}
-		return toReturn;
+		if (toUpdate.isToBeRemoved()) {
+			this.serverFiles.remove(snippetIndex);
+		} else {
+			this.serverFiles.set(snippetIndex, toUpdate);
+		}
+		
+
+		return false;
 	}
 
 	private void populate() {
@@ -61,7 +56,7 @@ public class LocalDemoMediator implements Mediator {
 				add(new SimpleStringProperty("tag3"));
 			}
 		}, true));
-		
+
 		this.serverFiles.add(new CodeSnippet("Name2", "Description2", "SomeCode2", new ArrayList<StringProperty>() {
 
 			private static final long serialVersionUID = 1L;
@@ -72,7 +67,7 @@ public class LocalDemoMediator implements Mediator {
 				add(new SimpleStringProperty("tag4"));
 			}
 		}, false));
-		
+
 		this.serverFiles.add(new CodeSnippet("Name3", "Description3", "SomeCode3", new ArrayList<StringProperty>() {
 
 			private static final long serialVersionUID = 1L;
@@ -83,7 +78,7 @@ public class LocalDemoMediator implements Mediator {
 				add(new SimpleStringProperty("tag5"));
 			}
 		}, true));
-		
+
 		this.serverFiles.add(new CodeSnippet("Name4", "Description4", "SomeCode4", new ArrayList<StringProperty>() {
 
 			private static final long serialVersionUID = 1L;
@@ -94,7 +89,7 @@ public class LocalDemoMediator implements Mediator {
 				add(new SimpleStringProperty("tag7"));
 			}
 		}, false));
-		
+
 		this.serverFiles.add(new CodeSnippet("Name5", "Description5", "SomeCode5", new ArrayList<StringProperty>() {
 
 			private static final long serialVersionUID = 1L;
@@ -105,7 +100,7 @@ public class LocalDemoMediator implements Mediator {
 				add(new SimpleStringProperty("tag3"));
 			}
 		}, true));
-		
+
 		this.serverFiles.add(new CodeSnippet("Name6", "Description6", "SomeCode6", new ArrayList<StringProperty>() {
 
 			private static final long serialVersionUID = 1L;
@@ -116,7 +111,7 @@ public class LocalDemoMediator implements Mediator {
 				add(new SimpleStringProperty("tag3"));
 			}
 		}, false));
-		
+
 		this.serverFiles.add(new CodeSnippet("Name7", "Description7", "SomeCode7", new ArrayList<StringProperty>() {
 
 			private static final long serialVersionUID = 1L;
@@ -127,8 +122,6 @@ public class LocalDemoMediator implements Mediator {
 				add(new SimpleStringProperty("tag3"));
 			}
 		}, true));
-		
-
 
 	}
 
