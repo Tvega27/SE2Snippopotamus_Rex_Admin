@@ -23,6 +23,7 @@ public class LocalDemoMediator implements Mediator {
 	 */
 	public LocalDemoMediator() {
 		this(new ArrayList<CodeSnippet>(0));
+		
 	}
 
 	public LocalDemoMediator(List<CodeSnippet> toPopulate) {
