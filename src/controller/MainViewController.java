@@ -9,6 +9,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.CodeSnippet;
 import model.LocalDemoMediator;
+import model.Mediator;
+import model.ServerMediator;
 
 /**
  * Controller for the main view.
@@ -18,7 +20,7 @@ import model.LocalDemoMediator;
  */
 public class MainViewController {
 
-	private LocalDemoMediator mediator;
+	private Mediator mediator;
 	private ObservableList<CodeSnippet> observableData;
 	private ObservableList<CodeSnippet> unfilteredData;
 	private ObservableList<CodeSnippet> filteredData;
@@ -34,7 +36,7 @@ public class MainViewController {
 	 *            The name of the code snippet data file.
 	 */
 	public MainViewController() {
-		this.mediator = new LocalDemoMediator();
+		this.mediator = new ServerMediator();
 		this.unfilteredData = FXCollections.observableArrayList(CodeSnippet.extractor());
 		this.flaggedData = FXCollections.observableArrayList(CodeSnippet.extractor());
 		this.loadObservableData();
