@@ -102,10 +102,8 @@ public class AdminViewCodeBehind {
     @FXML
     private void loadFlaggedButtonClick(ActionEvent event) {
     	if(this.rbtnFlaggedFilter.isSelected()) {
-    		this.controller.updateData();
     		this.snippetListView.setItems(this.controller.getFlaggedData());
     	} else {
-    		this.controller.updateData();
     		this.snippetListView.setItems(this.controller.getObservableList());
     	}
     }

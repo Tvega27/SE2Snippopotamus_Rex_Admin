@@ -40,12 +40,11 @@ public class MainViewController {
 		this.mediator = new ServerMediator();
 		this.unfilteredData = FXCollections.observableArrayList(CodeSnippet.extractor());
 		this.flaggedData = FXCollections.observableArrayList(CodeSnippet.extractor());
-		this.loadObservableData();
-		this.loadFlaggedData();
+		this.updateData();
 	}
 	
-	public void updateData() {
-		this.loadFlaggedData();
+	private void updateData() {
+		this.loadObservableData();
 		this.loadFlaggedData();
 	}
 
@@ -60,11 +59,11 @@ public class MainViewController {
 	private void loadFlaggedData() {
 		this.flaggedData = FXCollections.observableArrayList(CodeSnippet.extractor());
 		for (CodeSnippet current : this.mediator.requestServerDump()) {
-			if (current.getTags().contains(new SimpleStringProperty("needs_approval"))) {
-
-				this.flaggedData.add(current);
+			for (StringProperty tag : current.getTags()) {
+				if (tag.get().equals("needs_approval")) {
+					this.flaggedData.add(current);
+				}
 			}
-
 		}
 	}
 
@@ -90,6 +89,7 @@ public class MainViewController {
 	 * @return the flagged code snippets
 	 */
 	public ObservableList<CodeSnippet> getFlaggedData() {
+		this.updateData();
 		return this.flaggedData;
 	}
 
@@ -100,6 +100,7 @@ public class MainViewController {
 	 * @return An observable list of code snippets.
 	 */
 	public ObservableList<CodeSnippet> getObservableList() {
+		this.updateData();
 		return this.observableData;
 	}
 
