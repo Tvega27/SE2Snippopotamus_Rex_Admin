@@ -118,6 +118,11 @@ public class MainViewController {
 		this.updateData();
 	}
 	
+	public void approveSnippet(CodeSnippet snippet) {
+		snippet.removeTag("needs_approval");
+		this.relaySnippetUpdate(snippet);
+	}
+	
 	public void relaySnippetRemove(CodeSnippet snippet) {
 		this.mediator.requestServerRemoveSnippet(snippet);
 		this.updateData();

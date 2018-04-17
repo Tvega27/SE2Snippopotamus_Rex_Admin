@@ -87,15 +87,13 @@ public class AdminViewCodeBehind {
 
     @FXML
     private void approveSnippetButtonClick(ActionEvent event) {
-    	this.controller.relaySnippetUpdate(this.selected);
-    	this.snippetDetailsTxtArea.setText("Snippet Approved");
+    	this.controller.approveSnippet(this.selected);
     	this.loadFlaggedButtonClick(event);
     }
 
     @FXML
     private void denySnippetButtonClick(ActionEvent event) {
     	this.controller.relaySnippetRemove(this.selected);
-    	this.snippetDetailsTxtArea.setText("Snippet Denied");
     	this.loadFlaggedButtonClick(event);
     }
 
