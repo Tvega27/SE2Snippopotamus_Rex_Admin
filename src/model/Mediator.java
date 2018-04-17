@@ -2,6 +2,13 @@ package model;
 
 import java.util.List;
 
+/**
+ * Interface for a mediator
+ * 
+ * @author Tyler Vega, Andrew Weems
+ * @version 4/17/18
+ *
+ */
 public interface Mediator {
 
 

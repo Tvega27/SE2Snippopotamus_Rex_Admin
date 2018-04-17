@@ -16,7 +16,7 @@ import model.ServerMediator;
 /**
  * Controller for the main view.
  * 
- * @author David Jarrett
+ * @author David Jarrett, Tyler Vega, Andrew Weems
  * @version 2/12/2018
  */
 public class MainViewController {
