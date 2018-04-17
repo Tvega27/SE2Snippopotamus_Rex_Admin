@@ -104,10 +104,20 @@ public class AdminViewCodeBehind {
     private void loadFlaggedButtonClick(ActionEvent event) {
     	if(this.rbtnFlaggedFilter.isSelected()) {
     		this.snippetListView.setItems(this.controller.getFlaggedData());
+    		this.determineListEnable();
     	} else {
     		this.snippetListView.setItems(this.controller.getObservableList());
+    		this.determineListEnable();
     	}
     }
+
+	private void determineListEnable() {
+		if(this.snippetListView.getItems().isEmpty()) {
+			this.snippetListView.setDisable(true);
+		} else {
+			this.snippetListView.setDisable(false);
+		}
+	}
     
     @FXML
     private void removeTagButtonClick(ActionEvent event) {
@@ -116,6 +126,12 @@ public class AdminViewCodeBehind {
     	this.controller.relaySnippetUpdate(this.selected);
     	this.loadFlaggedButtonClick(event);
     	this.tagListView.setItems(this.controller.loadTagData(this.selected));
+    }
+    
+    @FXML
+    private void onMouseExit(MouseEvent event) {
+    	this.controller.relaySnippetUpdate(this.selected);
+
     }
 
     @FXML
@@ -135,7 +151,6 @@ public class AdminViewCodeBehind {
 		this.tagListView.setItems(this.controller.loadTagData(this.selected));
 		this.selectedTag = this.tagListView.selectionModelProperty().getValue().getSelectedItem();
 		
-		this.controller.relaySnippetUpdate(this.selected);
     }
 
 }
