@@ -25,7 +25,6 @@ public class LocalDemoMediator implements Mediator {
 		this(new ArrayList<CodeSnippet>(0));
 		
 	}
-
 	public LocalDemoMediator(List<CodeSnippet> toPopulate) {
 		this.serverFiles = Objects.requireNonNull(toPopulate);
 		if (toPopulate.size() == 0) {
@@ -57,11 +56,11 @@ public class LocalDemoMediator implements Mediator {
 		if (snippetIndex == -1) {
 			return false;
 		}
-		if (toUpdate.isToBeRemoved()) {
-			this.serverFiles.remove(snippetIndex);
-		} else {
-			this.serverFiles.set(snippetIndex, toUpdate);
-		}
+		//if (toUpdate.isToBeRemoved()) {
+		//	this.serverFiles.remove(snippetIndex);
+		//} else {
+		//	this.serverFiles.set(snippetIndex, toUpdate);
+		//}
 
 		return true;
 	}
@@ -76,7 +75,7 @@ public class LocalDemoMediator implements Mediator {
 				add(new SimpleStringProperty("tag2"));
 				add(new SimpleStringProperty("tag3"));
 			}
-		}, true));
+		}));
 
 		this.serverFiles.add(new CodeSnippet("Name2", "Description2", "SomeCode2", new ArrayList<StringProperty>() {
 
@@ -87,7 +86,7 @@ public class LocalDemoMediator implements Mediator {
 				add(new SimpleStringProperty("tag5"));
 				add(new SimpleStringProperty("tag4"));
 			}
-		}, false));
+		}));
 
 		this.serverFiles.add(new CodeSnippet("Name3", "Description3", "SomeCode3", new ArrayList<StringProperty>() {
 
@@ -98,7 +97,7 @@ public class LocalDemoMediator implements Mediator {
 				add(new SimpleStringProperty("tag2"));
 				add(new SimpleStringProperty("tag5"));
 			}
-		}, true));
+		}));
 
 		this.serverFiles.add(new CodeSnippet("Name4", "Description4", "SomeCode4", new ArrayList<StringProperty>() {
 
@@ -109,7 +108,7 @@ public class LocalDemoMediator implements Mediator {
 				add(new SimpleStringProperty("tag6"));
 				add(new SimpleStringProperty("tag7"));
 			}
-		}, false));
+		}));
 
 		this.serverFiles.add(new CodeSnippet("Name5", "Description5", "SomeCode5", new ArrayList<StringProperty>() {
 
@@ -118,9 +117,9 @@ public class LocalDemoMediator implements Mediator {
 			{
 				add(new SimpleStringProperty("tag7"));
 				add(new SimpleStringProperty("tag1"));
-				add(new SimpleStringProperty("tag3"));
+				add(new SimpleStringProperty("needs_approval"));
 			}
-		}, true));
+		}));
 
 		this.serverFiles.add(new CodeSnippet("Name6", "Description6", "SomeCode6", new ArrayList<StringProperty>() {
 
@@ -128,21 +127,21 @@ public class LocalDemoMediator implements Mediator {
 
 			{
 				add(new SimpleStringProperty("tag1"));
-				add(new SimpleStringProperty("tag2"));
+				add(new SimpleStringProperty("needs_approval"));
 				add(new SimpleStringProperty("tag3"));
 			}
-		}, false));
+		}));
 
 		this.serverFiles.add(new CodeSnippet("Name7", "Description7", "SomeCode7", new ArrayList<StringProperty>() {
 
 			private static final long serialVersionUID = 1L;
 
 			{
-				add(new SimpleStringProperty("tag5"));
+				add(new SimpleStringProperty("needs_approval"));
 				add(new SimpleStringProperty("tag7"));
 				add(new SimpleStringProperty("tag3"));
 			}
-		}, true));
+		}));
 
 	}
 

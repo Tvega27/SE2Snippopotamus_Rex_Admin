@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -54,7 +55,7 @@ public class MainViewController {
 	private void loadFlaggedData() {
 		this.flaggedData = FXCollections.observableArrayList(CodeSnippet.extractor());
 		for (CodeSnippet current : this.mediator.requestServerDump()) {
-			if (current.isFlagged()) {
+			if (current.getTags().contains(new SimpleStringProperty("needs_approval"))) {
 
 				this.flaggedData.add(current);
 			}
