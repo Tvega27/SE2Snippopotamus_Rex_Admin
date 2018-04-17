@@ -43,6 +43,11 @@ public class MainViewController {
 		this.loadObservableData();
 		this.loadFlaggedData();
 	}
+	
+	public void updateData() {
+		this.loadFlaggedData();
+		this.loadFlaggedData();
+	}
 
 	private void loadObservableData() {
 		this.unfilteredData = FXCollections.observableArrayList(CodeSnippet.extractor());
@@ -109,8 +114,12 @@ public class MainViewController {
 	 */
 	public void relaySnippetUpdate(CodeSnippet snippet) {
 		this.mediator.requestServerUpdateSnippet(snippet);
-		this.loadObservableData();
-		this.loadFlaggedData();
+		this.updateData();
+	}
+	
+	public void relaySnippetRemove(CodeSnippet snippet) {
+		this.mediator.requestServerRemoveSnippet(snippet);
+		this.updateData();
 	}
 
 	/**

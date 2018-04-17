@@ -144,5 +144,10 @@ public class LocalDemoMediator implements Mediator {
 		}));
 
 	}
+	@Override
+	public boolean requestServerRemoveSnippet(CodeSnippet toRemove) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 }

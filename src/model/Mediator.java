@@ -9,6 +9,6 @@ public interface Mediator {
 
 	public boolean requestServerUpdateSnippet(CodeSnippet toUpdate);
 	
-	
+	public boolean requestServerRemoveSnippet(CodeSnippet toRemove);
 
 }

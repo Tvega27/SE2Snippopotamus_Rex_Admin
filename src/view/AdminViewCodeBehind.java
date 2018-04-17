@@ -87,8 +87,6 @@ public class AdminViewCodeBehind {
 
     @FXML
     private void approveSnippetButtonClick(ActionEvent event) {
-    	this.selected.setToBeRemoved(false);
-    	this.selected.setFlagged(false);
     	this.controller.relaySnippetUpdate(this.selected);
     	this.snippetDetailsTxtArea.setText("Snippet Approved");
     	this.loadFlaggedButtonClick(event);
@@ -96,8 +94,7 @@ public class AdminViewCodeBehind {
 
     @FXML
     private void denySnippetButtonClick(ActionEvent event) {
-    	this.selected.setToBeRemoved(true);
-    	this.controller.relaySnippetUpdate(this.selected);
+    	this.controller.relaySnippetRemove(this.selected);
     	this.snippetDetailsTxtArea.setText("Snippet Denied");
     	this.loadFlaggedButtonClick(event);
     }
@@ -105,8 +102,10 @@ public class AdminViewCodeBehind {
     @FXML
     private void loadFlaggedButtonClick(ActionEvent event) {
     	if(this.rbtnFlaggedFilter.isSelected()) {
+    		this.controller.updateData();
     		this.snippetListView.setItems(this.controller.getFlaggedData());
     	} else {
+    		this.controller.updateData();
     		this.snippetListView.setItems(this.controller.getObservableList());
     	}
     }
