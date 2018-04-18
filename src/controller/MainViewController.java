@@ -105,24 +105,39 @@ public class MainViewController {
 	}
 
 	/**
-	 * Relays the approval or denial of a snippet to the mediator.
+	 * Relays the changes of a snippet to the mediator.
 	 * 
 	 * @param snippet
 	 *            the snippet
 	 * 
-	 * @postcondition If approved the snippet remains in the server, If denied the
-	 *                snippet is removed.
+	 * @postcondition The changed snippet is relayed to the server
 	 */
 	public void relaySnippetUpdate(CodeSnippet snippet) {
 		this.mediator.requestServerUpdateSnippet(snippet);
 		this.updateData();
 	}
 	
+	/**
+	 * Relays the approval of a snippet to the mediator.
+	 * 
+	 * @param snippet
+	 *            the snippet
+	 * 
+	 * @postcondition The snippet's "needs_approval" tag is removed.
+	 */
 	public void approveSnippet(CodeSnippet snippet) {
 		snippet.removeTag("needs_approval");
 		this.relaySnippetUpdate(snippet);
 	}
 	
+	/**
+	 * Relays the removal of a snippet to the mediator.
+	 * 
+	 * @param snippet
+	 *            the snippet
+	 * 
+	 * @postcondition The snippet for removal is relayed to the server
+	 */
 	public void relaySnippetRemove(CodeSnippet snippet) {
 		this.mediator.requestServerRemoveSnippet(snippet);
 		this.updateData();
