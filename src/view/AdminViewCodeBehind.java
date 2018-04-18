@@ -89,7 +89,13 @@ public class AdminViewCodeBehind {
     
 	private void initializeListView() {
 		this.snippetListView.setItems(this.controller.getObservableList());
-		this.snippetListView.getSelectionModel().selectFirst();
+		if(!this.snippetListView.getItems().isEmpty()) {
+			this.snippetListView.setDisable(false);
+			this.snippetListView.getSelectionModel().selectFirst();
+		} else {
+			this.snippetListView.setDisable(true);
+		}
+		
 	}
 
     @FXML
@@ -140,20 +146,24 @@ public class AdminViewCodeBehind {
 
     @FXML
     private void updateView(MouseEvent event) {
-		if (this.selected != null) {
-			this.lblSnippetName.textProperty().unbindBidirectional(this.selected.getNameProperty());
-			this.nameTextField.textProperty().unbindBidirectional(this.selected.getNameProperty());
-			this.descriptionTextArea.textProperty().unbindBidirectional(this.selected.getDescriptionProperty());
-		}
-		this.selected = this.snippetListView.selectionModelProperty().getValue().getSelectedItem();
-		
-		this.lblSnippetName.textProperty().bindBidirectional(this.selected.getNameProperty());
-		this.snippetEditor.setHtmlText(this.selected.getCode().getCodeText());
-		this.nameTextField.textProperty().bindBidirectional(this.selected.getNameProperty());
-		this.descriptionTextArea.textProperty().bindBidirectional(this.selected.getDescriptionProperty());
-		
-		this.tagListView.setItems(this.controller.loadTagData(this.selected));
-		this.selectedTag = this.tagListView.selectionModelProperty().getValue().getSelectedItem();
+    	if(this.snippetListView.getItems().isEmpty()) {
+    		this.snippetListView.setDisable(true);
+    	} else {
+    		if (this.selected != null) {
+    			this.lblSnippetName.textProperty().unbindBidirectional(this.selected.getNameProperty());
+    			this.nameTextField.textProperty().unbindBidirectional(this.selected.getNameProperty());
+    			this.descriptionTextArea.textProperty().unbindBidirectional(this.selected.getDescriptionProperty());
+    		}
+    		this.selected = this.snippetListView.selectionModelProperty().getValue().getSelectedItem();
+    		
+    		this.lblSnippetName.textProperty().bindBidirectional(this.selected.getNameProperty());
+    		this.snippetEditor.setHtmlText(this.selected.getCode().getCodeText());
+    		this.nameTextField.textProperty().bindBidirectional(this.selected.getNameProperty());
+    		this.descriptionTextArea.textProperty().bindBidirectional(this.selected.getDescriptionProperty());
+    		
+    		this.tagListView.setItems(this.controller.loadTagData(this.selected));
+    		this.selectedTag = this.tagListView.selectionModelProperty().getValue().getSelectedItem();
+    	}
 		
     }
 
