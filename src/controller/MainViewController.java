@@ -37,12 +37,16 @@ public class MainViewController {
 	 *            The name of the code snippet data file.
 	 */
 	public MainViewController() {
-		this.mediator = new ServerMediator();
+		this( new ServerMediator());
+	
+	}
+	public MainViewController(Mediator mediator) {
+		Objects.requireNonNull(mediator, "Mediator Can't be null");
+		this.mediator = mediator;
 		this.unfilteredData = FXCollections.observableArrayList(CodeSnippet.extractor());
 		this.flaggedData = FXCollections.observableArrayList(CodeSnippet.extractor());
 		this.updateData();
 	}
-	
 	private void updateData() {
 		this.loadObservableData();
 		this.loadFlaggedData();
@@ -100,7 +104,6 @@ public class MainViewController {
 	 * @return An observable list of code snippets.
 	 */
 	public ObservableList<CodeSnippet> getObservableList() {
-		this.updateData();
 		return this.observableData;
 	}
 
@@ -179,15 +182,11 @@ public class MainViewController {
 	 */
 	public void filterListWithTag(String filterString) {
 		this.filteredData = this.unfilteredData.filtered((snippet) -> {
-			boolean[] containsTag = { false };
+			boolean[] containsTag = {false};
 			List<StringProperty> tags = snippet.getTags();
-			tags.forEach(tagProperty -> {
-				if (tagProperty.get().equals(filterString))
-					containsTag[0] = true;
-			});
+			tags.forEach(tagProperty -> { if(tagProperty.get().equals(filterString)) containsTag[0] = true; });
 			return containsTag[0];
 		});
 		this.observableData = this.filteredData;
 	}
-
 }
