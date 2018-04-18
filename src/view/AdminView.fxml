@@ -21,7 +21,7 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="509.0" prefWidth="328.0">
                <children>
-                  <Accordion prefHeight="648.0" prefWidth="202.0">
+                  <Accordion fx:id="listAccordian" prefHeight="648.0" prefWidth="202.0">
                     <panes>
                       <TitledPane fx:id="snippetListTitlePane" animated="false" prefWidth="202.0" text="Snippet List">
                         <content>
@@ -39,11 +39,11 @@
                       </TitledPane>
                       <TitledPane fx:id="userTitlePane" animated="false" text="User Options">
                         <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                          <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="200.0">
                                  <children>
                                     <Button fx:id="addUserButton" layoutX="8.0" layoutY="77.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#addUserButtonClick" prefHeight="31.0" prefWidth="185.0" text="Add User" />
                                     <Button fx:id="removeUserButton" layoutX="10.0" layoutY="121.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#removeUserButtonClick" prefHeight="31.0" prefWidth="185.0" text="Remove User" />
-                                    <TextField fx:id="userNameTextField" layoutX="7.0" layoutY="33.0" promptText="User Name" />
+                                    <TextField fx:id="userNameTextField" layoutX="7.0" layoutY="21.0" prefHeight="43.0" prefWidth="187.0" promptText="User Name" />
                                  </children>
                               </AnchorPane>
                         </content>

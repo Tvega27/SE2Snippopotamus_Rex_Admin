@@ -84,6 +84,9 @@ public class AdminViewCodeBehind {
     private Accordion detailsAccordian;
     
     @FXML
+    private Accordion listAccordian;
+    
+    @FXML
     private TextArea descriptionTextArea;
     
     private MainViewController controller;
@@ -97,6 +100,7 @@ public class AdminViewCodeBehind {
     	this.controller = new MainViewController();
     	this.selected = null;
     	this.selectedTag = null;
+    	this.listAccordian.setExpandedPane(this.snippetListTitlePane);
     	this.detailsAccordian.setExpandedPane(this.snippetTitlePane);
     	this.initializeListView();
     	this.updateView(null);
