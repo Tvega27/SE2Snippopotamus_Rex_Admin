@@ -25,6 +25,21 @@ public class AdminViewCodeBehind {
 
     @FXML
     private ListView<CodeSnippet> snippetListView;
+    
+    @FXML
+    private TitledPane userTitlePane;
+    
+    @FXML
+    private Button addUserButton;
+
+    @FXML
+    private Button removeUserButton;
+    
+    @FXML
+    private TextField userNameTextField;
+
+    @FXML
+    private TitledPane snippetListTitlePane;
 
     @FXML
     private Button approveSnippetButton;
@@ -97,6 +112,16 @@ public class AdminViewCodeBehind {
 		}
 		
 	}
+	
+    @FXML
+    void addUserButtonClick(ActionEvent event) {
+    	this.controller.relayAddUser(this.userNameTextField.getText());
+    }
+    
+    @FXML
+    void removeUserButtonClick(ActionEvent event) {
+    	this.controller.relayRemoveUser(this.userNameTextField.getText());
+    }
 
     @FXML
     private void approveSnippetButtonClick(ActionEvent event) {

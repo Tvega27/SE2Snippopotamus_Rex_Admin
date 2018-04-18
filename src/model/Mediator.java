@@ -17,5 +17,9 @@ public interface Mediator {
 	public boolean requestServerUpdateSnippet(CodeSnippet toUpdate);
 	
 	public boolean requestServerRemoveSnippet(CodeSnippet toRemove);
+	
+	public boolean requestServerAddUser(String user);
+	
+	public boolean requestServerRemoveUser(String user);
 
 }

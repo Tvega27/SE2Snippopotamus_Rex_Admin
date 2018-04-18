@@ -103,6 +103,32 @@ public class MainViewController {
 		this.updateData();
 		return this.observableData;
 	}
+	
+	/**
+	 * Relays the addition of a user to the mediator.
+	 * 
+	 * @param user
+	 *            the user
+	 * 
+	 * @postcondition The added user is relayed to the server
+	 */
+	public void relayAddUser(String user) {
+		this.mediator.requestServerAddUser(user);
+		this.updateData();
+	}
+	
+	/**
+	 * Relays the removal of a user to the mediator.
+	 * 
+	 * @param user
+	 *            the user
+	 * 
+	 * @postcondition The removed user is relayed to the server
+	 */
+	public void relayRemoveUser(String user) {
+		this.mediator.requestServerRemoveUser(user);
+		this.updateData();
+	}
 
 	/**
 	 * Relays the changes of a snippet to the mediator.

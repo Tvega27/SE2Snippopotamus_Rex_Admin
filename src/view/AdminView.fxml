@@ -21,12 +21,35 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="509.0" prefWidth="328.0">
                <children>
-                  <ListView fx:id="snippetListView" layoutX="9.0" layoutY="45.0" onMouseClicked="#updateView" prefHeight="593.0" prefWidth="185.0">
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                  </ListView>
-                  <RadioButton fx:id="rbtnFlaggedFilter" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#loadFlaggedButtonClick" text="Flagged Snippets" />
+                  <Accordion prefHeight="648.0" prefWidth="202.0">
+                    <panes>
+                      <TitledPane fx:id="snippetListTitlePane" animated="false" prefWidth="202.0" text="Snippet List">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <ListView fx:id="snippetListView" layoutY="44.0" onMouseClicked="#updateView" prefHeight="521.0" prefWidth="200.0">
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                    </ListView>
+                                    <RadioButton fx:id="rbtnFlaggedFilter" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#loadFlaggedButtonClick" text="Flagged Snippets" />
+                                 </children>
+                              </AnchorPane>
+                        </content>
+                      </TitledPane>
+                      <TitledPane fx:id="userTitlePane" animated="false" text="User Options">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <Button fx:id="addUserButton" layoutX="8.0" layoutY="77.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#addUserButtonClick" prefHeight="31.0" prefWidth="185.0" text="Add User" />
+                                    <Button fx:id="removeUserButton" layoutX="10.0" layoutY="121.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#removeUserButtonClick" prefHeight="31.0" prefWidth="185.0" text="Remove User" />
+                                    <TextField fx:id="userNameTextField" layoutX="7.0" layoutY="33.0" promptText="User Name" />
+                                 </children>
+                              </AnchorPane>
+                        </content>
+                      </TitledPane>
+                    </panes>
+                  </Accordion>
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="408.0" prefWidth="615.0">

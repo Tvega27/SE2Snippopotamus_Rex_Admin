@@ -56,4 +56,36 @@ public class ServerMediator implements Mediator {
 		return server.deleteSnippet(toRemove);
 	}
 
+	/**
+	 * Sends a request to the server to add a user
+	 * 
+	 * @precondition server must be active
+	 * 
+	 * @param user
+	 *            The user to add on the server
+	 * 
+	 * @return True if the user was added, otherwise false.
+	 */
+	@Override
+	public boolean requestServerAddUser(String user) {
+		Server server= new Server();
+		return server.addNewUser(user);
+	}
+
+	/**
+	 * Sends a request to the server to remove a user
+	 * 
+	 * @precondition server must be active
+	 * 
+	 * @param user
+	 *            The user to remove on the server
+	 * 
+	 * @return True if the user was removed, otherwise false.
+	 */
+	@Override
+	public boolean requestServerRemoveUser(String user) {
+		Server server = new Server();
+		return server.deleteUser(user);
+	}
+
 }

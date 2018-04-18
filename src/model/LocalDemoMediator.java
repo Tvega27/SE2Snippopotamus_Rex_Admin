@@ -149,5 +149,15 @@ public class LocalDemoMediator implements Mediator {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	@Override
+	public boolean requestServerAddUser(String user) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public boolean requestServerRemoveUser(String user) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 }
