@@ -2,6 +2,8 @@ package test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 import model.CodeSnippet;
@@ -12,9 +14,12 @@ class TestServerWhenGetAllSnippetsFromServer {
 	@Test
 	void testServerWhenGetAllSnippetsFromServerWithNoSnippets() {
 		Server server = new Server();
-		
-		assertEquals(0, server.getAllSnippetsFromServer().size());
-	}
+        assertEquals(true, server.deleteAllSnippets());
+        server = new Server();
+        List<CodeSnippet> snippets = server.getAllSnippetsFromServer();
+        assertEquals(0, snippets.size());
+	    }
+	
 	
 	@Test
 	void testServerWhenGetAllSnippetsFromDeactivatedServer() {
