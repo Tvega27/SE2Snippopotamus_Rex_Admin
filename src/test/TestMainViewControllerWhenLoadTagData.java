@@ -6,12 +6,13 @@ import org.junit.jupiter.api.Test;
 
 import controller.MainViewController;
 import model.CodeSnippet;
+import model.LocalDemoMediator;
 
 class TestMainViewControllerWhenLoadTagData {
 
 	@Test
 	void testLoadTagDataWithValidSnippetThatContainsOneTag() {
-		MainViewController controller = new MainViewController();
+		MainViewController controller = new MainViewController(new LocalDemoMediator());
 		CodeSnippet cs = new CodeSnippet("Name", "Description", "Code Text");
 		cs.addTag("New tag 1");
 		
@@ -20,7 +21,7 @@ class TestMainViewControllerWhenLoadTagData {
 	
 	@Test
 	void testLoadTagDataValidSnippetWithNoTags() {
-		MainViewController controller = new MainViewController();
+		MainViewController controller = new MainViewController(new LocalDemoMediator());
 		CodeSnippet cs = new CodeSnippet("Name", "Description", "Code Text");
 		
 		assertEquals(0, controller.loadTagData(cs).size());
@@ -28,7 +29,7 @@ class TestMainViewControllerWhenLoadTagData {
 	
 	@Test
 	void testLoadTagDataValidSnippetWithManyTags() {
-		MainViewController controller = new MainViewController();
+		MainViewController controller = new MainViewController(new LocalDemoMediator());
 		CodeSnippet cs = new CodeSnippet("Name", "Description", "Code Text");
 		cs.addTag("New tag 1");
 		cs.addTag("New tag 2");
