@@ -12,6 +12,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.web.HTMLEditor;
 import model.CodeSnippet;
 
 /**
@@ -33,9 +34,6 @@ public class AdminViewCodeBehind {
 
     @FXML
     private Button loadFlaggedSnippetBtn;
-
-    @FXML
-    private TextArea snippetDetailsTxtArea;
     
     @FXML
     private Label lblSnippetName;
@@ -57,9 +55,15 @@ public class AdminViewCodeBehind {
 
     @FXML
     private TitledPane detailsTitlePane;
+    
+    @FXML
+    private TitledPane snippetTitlePane;
 
     @FXML
     private TextField nameTextField;
+    
+    @FXML
+    private HTMLEditor snippetEditor;
     
     @FXML
     private Accordion detailsAccordian;
@@ -78,7 +82,7 @@ public class AdminViewCodeBehind {
     	this.controller = new MainViewController();
     	this.selected = null;
     	this.selectedTag = null;
-    	this.detailsAccordian.setExpandedPane(tagsTitlePane);
+    	this.detailsAccordian.setExpandedPane(this.snippetTitlePane);
     	this.initializeListView();
     	this.updateView(null);
     }
@@ -144,7 +148,7 @@ public class AdminViewCodeBehind {
 		this.selected = this.snippetListView.selectionModelProperty().getValue().getSelectedItem();
 		
 		this.lblSnippetName.textProperty().bindBidirectional(this.selected.getNameProperty());
-		this.snippetDetailsTxtArea.textProperty().setValue(this.selected.getCode().getCodeText());
+		this.snippetEditor.setHtmlText(this.selected.getCode().getCodeText());
 		this.nameTextField.textProperty().bindBidirectional(this.selected.getNameProperty());
 		this.descriptionTextArea.textProperty().bindBidirectional(this.selected.getDescriptionProperty());
 		
